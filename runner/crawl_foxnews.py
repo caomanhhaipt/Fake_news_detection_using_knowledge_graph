@@ -9,6 +9,7 @@ def count_luanvan(luanvan_results):
 
 DIR_PATH = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir)) + "/"
 pattern_url = "https://www.foxnews.com/category/person/donald-trump"
+path_save = DIR_PATH + "news_fox"
 
 options = webdriver.ChromeOptions()
 
@@ -21,10 +22,17 @@ contain = driver.find_element_by_xpath(
 
 number = count_luanvan(contain)
 
-i = 1
+with open(path_save + "/" + "definition.txt", 'r') as f:
+    down_files = f.read()
 
+down_files = down_files.split("\n")
+
+i = 1
+count_overlap = 0
 while (1):
-    print (i)
+    if count_overlap >= 10:
+        break
+
     try:
         link_article = driver.find_element_by_xpath(
                                         '//*[@class="row"]/main/section/div/article[' + str(i) + ']/div[1]/a')
@@ -43,10 +51,18 @@ while (1):
 
             file_name = ''.join(e for e in title if e.isalnum())
 
-            with open(DIR_PATH + "news_fox/foxnews_" + file_name, 'w') as f:
-                f.write(title)
-                f.write("\n")
-                f.write(content)
+            if any("foxnews_" + file_name in s for s in down_files):
+                count_overlap += 1
+            else:
+                with open(DIR_PATH + "news_fox/foxnews_" + file_name, 'w') as f:
+                    f.write(title)
+                    f.write("\n")
+                    f.write(content)
+
+                down_files.append("foxnews_" + file_name)
+                with open(path_save + "/" + "definition.txt", 'a') as f:
+                    f.write("\n")
+                    f.write("foxnews_" + file_name)
 
             driver.execute_script("window.history.go(-1)")
             time.sleep(3)
