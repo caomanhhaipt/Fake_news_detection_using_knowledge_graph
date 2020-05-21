@@ -1,0 +1,42 @@
+----------------SUMMARY----------------
+learning_rate:0.01
+L1_flag:True
+hidden_size:50
+batch_size:128
+epochs:100
+margin:0.8
+data:yago3_10
+optimizer:adam
+sampling:uniform
+neg_rate:1
+hyperparameters:{'learning_rate': 0.01, 'L1_flag': True, 'hidden_size': 50, 'batch_size': 128, 'epochs': 100, 'margin': 0.8, 'data': 'yago3_10', 'optimizer': 'adam', 'sampling': 'uniform', 'neg_rate': 1}
+test_step:10
+full_test_flag:False
+test_num:1000
+hits:[1,3,5,10]
+loadFromData:False
+save_model:True
+disp_summary:True
+disp_result:False
+patience:3
+disp_triple_num:20
+plot_embedding:False
+plot_training_result:True
+plot_testing_result:True
+plot_entity_only:False
+num_process_gen:2
+log_device_placement:False
+custom_dataset_path:None
+path_tmp:/content/pykg2vec/pykg2vec/dataset/YAGO3_10/intermediate
+path_result:/content/pykg2vec/pykg2vec/dataset/YAGO3_10/results
+path_figures:/content/pykg2vec/pykg2vec/dataset/YAGO3_10/figures
+path_embeddings:/content/pykg2vec/pykg2vec/dataset/YAGO3_10/embeddings
+debug:False
+-----------------------------------------
+
+----------Metadata Info for Dataset:yago3_10----------------Total Training Triples   :1079040
+Total Testing Triples    :5000
+Total validation Triples :5000
+Total Entities           :123182
+Total Relations          :37
+---------------------------------------------
