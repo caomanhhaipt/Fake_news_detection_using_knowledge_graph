@@ -2,6 +2,7 @@ from selenium import webdriver
 import os
 import time
 from selenium.webdriver.common.keys import Keys
+import datetime
 
 def count_luanvan(luanvan_results):
     results = luanvan_results.find_elements_by_tag_name("div")
@@ -42,10 +43,22 @@ with open(path_save + "/" + "definition.txt", 'r') as f:
 
 down_files = down_files.split("\n")
 
+now = datetime.datetime.now()
+
+folder_name = str(now).split(" ")[0].replace("-", "_")
+
+path_save_ = path_save + "/" + folder_name
+
+if os.path.isdir(path_save_) == False:
+    os.makedirs(path_save_)
+
 page = 2
 count_overlap = 0
+count_time = 0
+total_time = 0
 while (1):
 
+    tmp_time  = datetime.datetime.now()
     i = 1
     current_url = driver.current_url
 
@@ -76,7 +89,7 @@ while (1):
 
                     content = driver.find_element_by_xpath('//*[@class="pg-rail-tall__body"]/section/div').text
 
-                    with open(path_save + "/" + file_name + ".txt", 'w') as f:
+                    with open(path_save_ + "/" + file_name + ".txt", 'w') as f:
                         f.write(title)
                         f.write("\n\n")
                         f.write(content)
@@ -85,6 +98,10 @@ while (1):
                     with open(path_save + "/" + "definition.txt", 'a') as f:
                         f.write("\n")
                         f.write(file_name)
+
+                    tmp = datetime.datetime.now() - tmp_time
+                    count_time += 1
+                    total_time += tmp.total_seconds()
 
                     driver.execute_script("window.history.go(-1)")
                     time.sleep(3)
@@ -103,3 +120,7 @@ while (1):
     driver.get(tmp)
     page += 1
     time.sleep(3)
+
+print (total_time)
+print (count_time)
+print (total_time/count_time)
