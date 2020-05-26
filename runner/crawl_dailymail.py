@@ -107,3 +107,7 @@ while i < number:
 print (total_time)
 print (count_time)
 print (total_time/count_time)
+
+import runner.pre_processing as pre
+
+pre.runner("dailymail")

@@ -5,11 +5,6 @@ import nltk
 import datetime
 import re
 
-# path = "/home/hai/PycharmProjects/crawl_theses/cnn/2020_05_15"
-#
-# for item in os.listdir(path):
-#     with open()
-
 def pro_data(text):
     tmp = text.split("\n")
 
@@ -29,9 +24,7 @@ def pro_data(text):
     neuralcoref.add_to_pipe(nlp)
 
     doc = nlp(article)
-    # print(article)
-    #
-    # print ("_"*100)
+
     article = doc._.coref_resolved
 
     sents = nltk.sent_tokenize(article)
@@ -87,101 +80,38 @@ def pro_foxnews(text):
 
 DIR_PATH = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir)) + "/"
 
-data_name = "news_fox" #cnn/dailymail/news_fox
+def runner(data_name):
+# data_name = "news_fox" #cnn/dailymail/news_fox
+    path_data = DIR_PATH + data_name
+    path_save = DIR_PATH + "processed_data/" + data_name
+    if os.path.isdir(path_save) == False:
+        os.makedirs(path_save)
 
-path_data = DIR_PATH + data_name
-path_save = DIR_PATH + "processed_data/" + data_name
-if os.path.isdir(path_save) == False:
-    os.makedirs(path_save)
+    for folder in os.listdir(path_data):
+        if ".txt" in folder:
+            continue
 
-for folder in os.listdir(path_data):
-    if ".txt" in folder:
-        continue
+        if os.path.isdir(path_save + "/" + folder) == False:
+            os.makedirs(path_save + "/" + folder)
 
-    if os.path.isdir(path_save + "/" + folder) == False:
-        os.makedirs(path_save + "/" + folder)
+            for file_name in os.listdir(path_data + "/" + folder):
+                print (file_name)
+                with open(path_data + "/" + folder + "/" + file_name, 'r') as f:
+                    text = f.read()
 
-        for file_name in os.listdir(path_data + "/" + folder):
-            print (file_name)
-            with open(path_data + "/" + folder + "/" + file_name, 'r') as f:
-                text = f.read()
+                if data_name == "cnn":
+                    text = pro_CNN(text)
+                elif data_name == "news_fox":
+                    text = pro_foxnews(text)
+                else:
+                    text = pro_dailymail(text)
 
-            if data_name == "cnn":
-                text = pro_CNN(text)
-            elif data_name == "news_fox":
-                text = pro_foxnews(text)
-            else:
-                text = pro_dailymail(text)
+                final_text = pro_data(text)
 
-            final_text = pro_data(text)
+                # print (final_text)
 
-            # print (final_text)
+                with open(path_save + "/" + folder + "/" + file_name, "w") as f:
+                    f.write("\n".join(final_text))
 
-            with open(path_save + "/" + folder + "/" + file_name, "w") as f:
-                f.write("\n".join(final_text))
-
-    else:
-        continue
-
-
-# path = "/home/hai/PycharmProjects/crawl_theses/news_fox/2020_05_15/foxnews_TrumpsaysstateswillbeabletotestmorepeopleinMaythanSouthKoreahasintotal"
-#
-# with open(path, 'r') as f:
-#     tmp = f.read()
-#
-# print (pro_foxnews(tmp))
-# print (datetime.datetime.now())
-#
-# path = "/home/hai/PycharmProjects/crawl_theses/cnn/2020_05_15/TrumptoutsreopeningmessageinPennsylvania.txt"
-#
-# with open(path, 'r') as f:
-#     tmp = f.read()
-#
-# tmp = tmp.replace("(CNN)", "")
-#
-# tmp = tmp.split("\n")
-#
-# result = []
-# for item in tmp:
-#     if len(item) < 5:
-#         continue
-#
-#     if "." in item[-3:]:
-#         result.append(item)
-#     else:
-#         result.append(item + ".")
-#
-# article = "\n".join(result)
-#
-# nlp = spacy.load('en') # this is the line where it crashes
-# neuralcoref.add_to_pipe(nlp)
-#
-# doc = nlp(article)
-# # print(article)
-# #
-# # print ("_"*100)
-# article = doc._.coref_resolved
-#
-# sents = nltk.sent_tokenize(article)
-# # print (sents)
-# sents_result = []
-# for item in sents:
-#     text = nltk.word_tokenize(item)
-#     tag = nltk.pos_tag(text)
-#
-#     tmp = item
-#     for item2 in tag:
-#         # print(item[1])
-#         if "VB" in item2[1]:
-#             verb_inf = nltk.stem.WordNetLemmatizer().lemmatize(item2[0], 'v')
-#
-#             tmp = tmp.replace(item2[0], verb_inf)
-#
-#     sents_result.append(tmp)
-#
-# print (datetime.datetime.now())
-# print (sents_result)
-
-# print (article)
-
-# print (article)
+        else:
+            continue

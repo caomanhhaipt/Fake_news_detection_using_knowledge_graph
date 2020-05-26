@@ -11,7 +11,7 @@ def count_luanvan(luanvan_results):
 
 DIR_PATH = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir)) + "/"
 pattern_url = "https://edition.cnn.com/"
-key_search = "donald trump and wife"
+key_search = "donald trump"
 path_save = DIR_PATH + "cnn"
 key_search_pattern = key_search.replace(" ", "%20")
 
@@ -124,3 +124,7 @@ while (1):
 print (total_time)
 print (count_time)
 print (total_time/count_time)
+
+import runner.pre_processing as pre
+
+pre.runner("cnn")
