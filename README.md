@@ -34,4 +34,8 @@ Please replace "test1" in the "path" variable with folder name which leads to da
 local_runner/triples_extraction.py
 
 Notice: triples is saved in path_to/Fake_news_detection_using_knowledge_graph/test1.txt
+
+In addition: Stanford CoreNLP ships with a built-in server, which requires only the CoreNLP dependencies. To run this server, simply run:
+# Run the server using all jars in the current directory (e.g., the CoreNLP home directory)
+java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
 ```
