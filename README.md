@@ -39,3 +39,10 @@ In addition: Stanford CoreNLP ships with a built-in server, which requires only 
 # Run the server using all jars in the current directory (e.g., the CoreNLP home directory)
 java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000
 ```
+### Contribute a graph from available triples
+
+To contribute a graph from crawled triples, please insert triples folder from downloaded data above into "/kg/data". Then, run contribute_graph() in kg/run.py
+
+### Run detect fake news program
+
+To start program, just only run run() in kg/run.py file. Notice, please install neo4j already to contribute a graph before start this program.

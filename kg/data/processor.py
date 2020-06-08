@@ -1,6 +1,6 @@
 import traceback
 
-from model.model import Entity, Relation, Triple
+from kg.model.model import Entity, Relation, Triple
 import os
 import re
 from pycorenlp import StanfordCoreNLP

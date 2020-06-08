@@ -1,4 +1,4 @@
-from graph.graph import Graph
+from kg.graph.graph import Graph
 from os import listdir
 from os.path import isfile, join
 
